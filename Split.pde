@@ -1,14 +1,14 @@
 // Chris Acker
 // December 18, 2016
 
-Block b;
+ArrayList<Block> blocks = new ArrayList<Block>();
 int scl = 20;
 
-PVector food;
+PVector goal;
 
 void setup() {
   size(600, 600);
-  b = new Block();
+  blocks.add(new Block());
   frameRate(10);
   pickLocation();
 }
@@ -16,36 +16,32 @@ void setup() {
 void pickLocation() {
   int cols = width/scl;
   int rows = height/scl;
-  food = new PVector(floor(random(cols)), floor(random(rows)));
-  food.mult(scl);
-}
-
-void mousePressed() {
-  b.total++;
+  goal = new PVector(floor(random(cols)), floor(random(rows)));
+  goal.mult(scl);
 }
 
 void draw() {
   background(51);
 
-  if (b.eat(food)) {
+  if (blocks.get(0).eat(goal)) {
     pickLocation();
   }
   
-  b.update();
-  b.show();
+  blocks.get(0).update();
+  blocks.get(0).show();
 
   fill(255, 0, 100);
-  rect(food.x, food.y, scl, scl);
+  rect(goal.x, goal.y, scl, scl);
 }
 
 void keyPressed() {
   if (keyCode == UP) {
-    b.dir(0, -1);
+    blocks.get(0).dir(0, -1);
   } else if (keyCode == DOWN) {
-    b.dir(0, 1);
+    blocks.get(0).dir(0, 1);
   } else if (keyCode == RIGHT) {
-    b.dir(1, 0);
+    blocks.get(0).dir(1, 0);
   } else if (keyCode == LEFT) {
-    b.dir(-1, 0);
+    blocks.get(0).dir(-1, 0);
   }
 }
