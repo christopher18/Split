@@ -35,9 +35,9 @@ class Block {
     // if square goes "out of bounds", circle back around
     if (x == width && xspeed > 0) {
       x = 0;
-    } else if (x == 0 && xspeed < 0) {
+    } else if (x == -1*scl && xspeed < 0) {
       x = width;
-    } else if (y == 0 && yspeed < 0) {
+    } else if (y == -1*scl && yspeed < 0) {
       y = width;
     } else if (y == width && yspeed > 0) {
       y = 0;

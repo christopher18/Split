@@ -9,7 +9,7 @@ PVector food;
 void setup() {
   size(600, 600);
   b = new Block();
-  frameRate(20);
+  frameRate(10);
   pickLocation();
 }
 
