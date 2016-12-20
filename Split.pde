@@ -12,10 +12,10 @@ PVector goal;
 void setup() {
   size(600, 600);
   addBlock(0, 0);
-  frameRate(10);
+  frameRate(5);
   pickLocation();
 }
-
+// this will be the code that changes where the goal is
 void pickLocation() {
   int cols = width/scl;
   int rows = height/scl;
@@ -25,19 +25,20 @@ void pickLocation() {
 
 void draw() {
   background(51);
-
-  
+  // retrieve the current time
   long currTime = System.currentTimeMillis();
   // check if its been 10 seconds yet
   if (currTime - lastTimeBlock > 10000) {
     lastTimeBlock = currTime;
     addBlock(blocks.get(currBlock).x, blocks.get(currBlock).y);
   }
+  // for each block, update block's position and show it.
   for (int i = 0; i < blocks.size(); i++) {
     // it is important that the update and show happends before the if statement
     blocks.get(i).update();
     blocks.get(i).show();
-    if (blocks.get(i).eat(goal)) {
+    // if the position of the block is the same as the goal, remove the block from ArrayList
+    if (blocks.get(i).score(goal)) {
       blocks.remove(i);
       nextBlock();
     }

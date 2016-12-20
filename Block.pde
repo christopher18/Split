@@ -7,7 +7,7 @@ class Block {
   float xspeed = 1;
   float yspeed = 0;
 
-  boolean eat(PVector pos) {
+  boolean score(PVector pos) {
     float d = dist(x, y, pos.x, pos.y);
     if (d < 1) {
       return true;
@@ -48,10 +48,6 @@ class Block {
     } else {
       fill(255);
     }
-    rect(x, y, scl, scl);
-  }
-  void showBlue() {
-    fill(0, 0, 255);
     rect(x, y, scl, scl);
   }
 }
