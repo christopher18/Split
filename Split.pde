@@ -26,18 +26,21 @@ void pickLocation() {
 void draw() {
   background(51);
 
-  if (blocks.get(0).eat(goal)) {
-    pickLocation();
-  }
+  
   long currTime = System.currentTimeMillis();
   // check if its been 10 seconds yet
   if (currTime - lastTimeBlock > 10000) {
     lastTimeBlock = currTime;
-    addBlock(floor(random(width)), floor(random(height)));
+    addBlock(blocks.get(currBlock).x, blocks.get(currBlock).y);
   }
   for (int i = 0; i < blocks.size(); i++) {
+    // it is important that the update and show happends before the if statement
     blocks.get(i).update();
     blocks.get(i).show();
+    if (blocks.get(i).eat(goal)) {
+      blocks.remove(i);
+      nextBlock();
+    }
   }
   
   fill(255, 0, 100);
@@ -54,16 +57,34 @@ void keyPressed() {
   } else if (keyCode == LEFT) {
     blocks.get(currBlock).dir(-1, 0);
   }
+  nextBlock();
+}
+
+// add a new block, takes coordinates x and y
+void addBlock(float xpos, float ypos) {
+  Block b = new Block();
+  // set coordinates of new block
+  b.x = xpos;
+  b.y = ypos;
+  // send block off in a random direction
+  int rand = floor(random(4));
+  if (rand == 0) {
+    b.dir(0, -1);
+  } else if (rand == 1) {
+    b.dir(0, 1);
+  } else if (rand == 2) {
+    b.dir(1, 0);
+  } else {
+    b.dir(-1, 0);
+  }
+  blocks.add(b);
+}
+
+// increment currBlock and set to 0 if at end
+void nextBlock() {
   if (currBlock + 1 > blocks.size() - 1) {
     currBlock = 0;
   } else {
     currBlock++;
   }
-}
-
-// add a new block, takes coordinates x and y
-void addBlock(int xpos, int ypos) {
-  blocks.add(new Block());
-  blocks.get(blocks.size() - 1).x = xpos;
-  blocks.get(blocks.size() - 1).y = ypos;
 }
