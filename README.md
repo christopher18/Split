@@ -2,5 +2,5 @@
 *A game in which a player must juggle a number of cubes into goals.*
 
 **Bugs**
- - There is a delay when the block loops during which it can be lost if user clicks another direction
+ - When there is only one block left and it hits a goal the game crashes (we just need a way to end the game at that point)
 
